@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "host": "vite --host",
+    "build": "tsc -b && vite build && firebase deploy",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -13,9 +14,11 @@
     "@google-cloud/local-auth": "^3.0.1",
     "@googleapis/docs": "^5.0.1",
     "@tailwindcss/vite": "^4.1.12",
+    "firebase": "^12.1.0",
     "gapi-script": "^1.2.0",
     "google-auth-library": "^10.3.0",
     "googleapis": "^157.0.0",
+    "lucide-react": "^0.542.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "tailwindcss": "^4.1.12"

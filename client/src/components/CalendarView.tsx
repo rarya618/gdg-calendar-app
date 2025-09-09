@@ -142,17 +142,20 @@ function MonthlyCalendar(props: SubCalendarProps) {
                 {/* Events list with fixed gradient */}
                 <div className="flex-1 relative">
                   {/* Scrollable event list */}
-                  <div className="absolute inset-0 overflow-y-auto no-scrollbar space-y-0.5 pr-1">
+                  <div className="absolute inset-0 overflow-y-auto no-scrollbar space-y-0.5 pr-0">
                     {day.events.map((ev) => (
                       <div
                         key={ev.id}
-                        className={`flex items-center text-xs ${
+                        className={`flex items-center rounded-sm hover:rounded-full text-xs ${
                           ev.isAllDay
-                            ? `bg-gdg${setColor(ev)} rounded-sm text-white dark:text-neutral-900 hover:opacity-80`
-                            : `border border-l-3 border-r-0 border-t-0 border-b-0 border-gdg${setColor(ev)} hover:rounded-r-sm hover:bg-neutral-200 dark:hover:bg-neutral-700 `
+                            ? `bg-gdg${setColor(ev)} text-white dark:text-neutral-900 hover:opacity-80`
+                            : `hover:bg-neutral-200 dark:hover:bg-neutral-700 `
                         } px-1 cursor-pointer`}
                         onClick={() => setSelectedEvent(ev)}
                       >
+                        {ev.isAllDay ? null :
+                        <div className={`flex-shrink-0 rounded-full w-1.5 h-1.5 mr-1.5 bg-gdg${setColor(ev)}`}></div>
+                        }
                         <span className="truncate">
                           {!ev.isAllDay ? `${timeDisplay(ev.start)} ` : null}
                           <span className="ml-0.5 font-bold">{ev.summary}</span>

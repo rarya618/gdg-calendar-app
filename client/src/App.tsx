@@ -5,20 +5,21 @@ import './App.css'
 import logo from './assets/logo.png'
 import CalendarPage from './components/CalendarPage'
 
+export const API_KEY = "AIzaSyAwSbdyT1fnPmavu0h7C_k_riKRvHlTxjQ"; // optional, for read-only requests
 
 export const MONTHS: Record<number, string> = {
-  1: "January",
-  2: "February",
-  3: "March",
-  4: "April",
+  1: "Jan",
+  2: "Feb",
+  3: "Mar",
+  4: "Apr",
   5: "May",
-  6: "June",
-  7: "July",
-  8: "August",
-  9: "September",
-  10: "October",
-  11: "November",
-  12: "December",
+  6: "Jun",
+  7: "Jul",
+  8: "Aug",
+  9: "Sep",
+  10: "Oct",
+  11: "Nov",
+  12: "Dec",
 }
 
 export const buttonStyle = "border border-gdgBlue cursor-pointer rounded-md bg-gdgBlue text-white dark:text-neutral-900 hover:opacity-90"
@@ -81,7 +82,7 @@ function App() {
     setSelectedYear(today.getFullYear())
   }
 
-  const controlsStyle = "border border-gdgBlue rounded-md flex"
+  const controlsStyle = "border border-gdgBlue rounded-md flex justify-between"
 
   return (
     <div className={`flex flex-col w-screen ${calendarType == "calendar" ? "h-screen" : ""} px-2 pt-0 pb-2 select-none`}>
@@ -94,11 +95,11 @@ function App() {
           <button onClick={backToToday} className={`${buttonStyle} text-xs px-7 py-0`}>Today</button>
 
           <div className='flex gap-2'>
-            <div className={`${controlsStyle} w-32 justify-between`}>
+            <div className={`${controlsStyle}`}>
               <button onClick={prevMonth} className='px-2 py-1.5 text-blue-500 cursor-pointer'>
                 <ChevronLeft size={16} />
               </button>
-              <h2 className="text-xs text-blue-500 align-middle my-auto mx-1">{MONTHS[selectedMonth]}</h2>
+              <h2 className="text-xs text-blue-500 align-middle my-auto mx-0.5">{MONTHS[selectedMonth]}</h2>
               <button onClick={nextMonth} className='px-2 py-1.5 text-blue-500 cursor-pointer'>
                 <ChevronRight size={16} />
               </button>
@@ -108,7 +109,7 @@ function App() {
               <button onClick={() => setSelectedYear(selectedYear - 1)} className='px-2 py-1 text-blue-500 cursor-pointer'>
                 <ChevronLeft size={16} />
               </button>
-              <h2 className="text-xs text-blue-500 align-middle my-auto mx-2">{selectedYear}</h2>
+              <h2 className="text-xs text-blue-500 align-middle my-auto mx-0.5">{selectedYear}</h2>
               <button onClick={() => setSelectedYear(selectedYear + 1)} className='px-2 py-1.5 text-blue-500 cursor-pointer'>
                 <ChevronRight size={16} />
               </button>

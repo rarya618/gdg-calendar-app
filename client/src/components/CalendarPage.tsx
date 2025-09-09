@@ -29,7 +29,7 @@ function CalendarPage(props: MainCalendarProps) {
 
   const [events, setEvents] = useState<CalendarEvent[]>([]);
 
-  const transformEvent = (raw: any, calendar: Calendar): CalendarEvent => {
+  const transformEvent = (raw: any, calendar?: Calendar): CalendarEvent => {
     const isAllDay = !!raw.start.date; // true if "date" exists
 
     const start = isAllDay
@@ -42,7 +42,7 @@ function CalendarPage(props: MainCalendarProps) {
       : new Date(raw.end.dateTime);
 
     return {
-      id: `${calendar.id}-${raw.id}`,
+      id: `${calendar?.id}-${raw.id}`,
       summary: raw.summary || "(No title)",
       start: start,
       end: end,
@@ -54,19 +54,30 @@ function CalendarPage(props: MainCalendarProps) {
       description: raw.description || null,
       location: raw.location || null,
       isAllDay: isAllDay,
-      calendar: calendar
+      calendar: calendar ? calendar : {id: "sample", color: "red"} 
     }
   };
 
   const fetchEvents = async () => {
+    // get access token from backend
+    const tokenRes = await fetch("http://localhost:4000/access-token");
+    const { access_token } = await tokenRes.json();
+
     const allEvents: CalendarEvent[] = [];
 
     for (const calendar of CALENDARS) {
       const res = await fetch(
-        `https://www.googleapis.com/calendar/v3/calendars/${calendar.id}/events?key=${API_KEY}`
+        `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendar.id)}/events`,
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`, // 👈 use OAuth, not API key
+          },
+        }
       );
+
       const data = await res.json();
-      console.log(data)
+      console.log(`Events for ${calendar.id}:`, data);
+
       const normalized = (data.items || []).map((raw: any) =>
         transformEvent(raw, calendar)
       );

@@ -7,10 +7,17 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
+client/node_modules
+client/.firebase
+client/dist
 dist-ssr
 *.local
+
+server/node_modules
+server/functions
+server/google-cloud-sdk
+
+*google-cloud-sdk-426.0.0-darwin-x86_64.tar*
 
 # Editor directories and files
 .vscode/*
